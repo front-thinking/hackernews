@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import './App.css';
 
@@ -194,7 +195,21 @@ const Table = ({ list, onDismiss }) =>  {
     );
 }
 
-const Button = ({onClick, className = '', children}) => {
+
+Table.propTypes = {
+    list: PropTypes.arrayOf(
+        PropTypes.shape({
+            objectID: PropTypes.string.isRequired,
+            author: PropTypes.string,
+            url: PropTypes.string,
+            num_comments: PropTypes.number,
+            points: PropTypes.number,
+        })
+    ).isRequired,
+    onDismiss: PropTypes.func
+};
+
+const Button = ({onClick, className, children}) => {
     return (
         <button
             onClick={onClick}
@@ -206,5 +221,19 @@ const Button = ({onClick, className = '', children}) => {
     );
 }
 
+Button.propTypes = {
+    onClick: PropTypes.func,
+    className: PropTypes.string,
+    children: PropTypes.node
+};
+Button.defaultProps = {
+    className: '',
+};
+
 
 export default App;
+export {
+    Button,
+    Search,
+    Table
+};
